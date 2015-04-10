@@ -222,7 +222,7 @@
 			this.btnSet.TabIndex = 2;
 			this.btnSet.UseVisualStyleBackColor = true;
 			this.btnSet.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnSet_MouseDown);
-			this.btnSet.MouseMove += new System.Windows.Forms.MouseEventHandler(this.btnSet_MouseMove_1);
+			this.btnSet.MouseMove += new System.Windows.Forms.MouseEventHandler(this.btnSet_MouseMove);
 			this.btnSet.MouseUp += new System.Windows.Forms.MouseEventHandler(this.btnSet_MouseUp);
 			// 
 			// cbWndEnable
@@ -230,6 +230,7 @@
 			this.cbWndEnable.AutoSize = true;
 			this.cbWndEnable.Checked = true;
 			this.cbWndEnable.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.cbWndEnable.Enabled = false;
 			this.cbWndEnable.Location = new System.Drawing.Point(243, 128);
 			this.cbWndEnable.Name = "cbWndEnable";
 			this.cbWndEnable.Size = new System.Drawing.Size(15, 14);
@@ -241,10 +242,11 @@
 			this.cbWndEnabler.AutoSize = true;
 			this.cbWndEnabler.Location = new System.Drawing.Point(140, 127);
 			this.cbWndEnabler.Name = "cbWndEnabler";
-			this.cbWndEnabler.Size = new System.Drawing.Size(97, 17);
+			this.cbWndEnabler.Size = new System.Drawing.Size(88, 17);
 			this.cbWndEnabler.TabIndex = 19;
-			this.cbWndEnabler.Text = "Enable control:";
+			this.cbWndEnabler.Text = "Enable Wnd:";
 			this.cbWndEnabler.UseVisualStyleBackColor = true;
+			this.cbWndEnabler.CheckStateChanged += new System.EventHandler(this.cbWndEnabler_CheckStateChanged);
 			// 
 			// ReSize
 			// 

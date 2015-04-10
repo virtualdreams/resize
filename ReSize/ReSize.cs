@@ -30,6 +30,9 @@ namespace ReSize
 
 			toolTip.SetToolTip(cbClientArea, "If checked, the client area is set to the specified resolution.");
 			toolTip.SetToolTip(btnSet, "Drag the icon over a window and release the mouse button.");
+			toolTip.SetToolTip(cbNoTopLvl, "Don't resolve the top level window. This can select any control.");
+			toolTip.SetToolTip(cbWndEnabler, "Enable or disable a window. This can have unexpected results.");
+			toolTip.SetToolTip(cbWndEnable, "Set the state to enabled or disabled.");
 		}
 
 		private void tbWidth_KeyPress(object sender, KeyPressEventArgs e)
@@ -58,13 +61,12 @@ namespace ReSize
 		{
 			drag = true;
 			btnSet.Cursor = Cursors.NoMove2D;
-			
 		}
 
 		private void btnSet_MouseUp(object sender, MouseEventArgs e)
 		{
-			if(drag == true)
-			{
+			if(drag)
+			{	
 				if (!String.IsNullOrEmpty(tbWidth.Text) && !String.IsNullOrEmpty(tbHeight.Text))
 				{
 					IntPtr hWnd = WindowFromPoint(MousePosition.X, MousePosition.Y);
@@ -79,22 +81,22 @@ namespace ReSize
 						SetSize(hWnd, Int32.Parse(tbWidth.Text), Int32.Parse(tbHeight.Text));
 					}
 				}
-				
-				//if(cbWndEnabler.Checked)
-				//{
-				//    IntPtr hWnd = WindowFromPoint(MousePosition.X, MousePosition.Y);
 
-				//    if (!cbNoTopLvl.Checked)
-				//    {
-				//        hWnd = GetTopLevelWindow(hWnd);
-				//    }
-				
-				//    int enable = 0;
-				//    if(cbWndEnable.Checked)
-				//        enable = 1;
-					
-				//    EnableWindow(hWnd, enable);	
-				//}
+				if (cbWndEnabler.Checked && cbNoResize.Checked)
+				{
+					IntPtr hWnd = WindowFromPoint(MousePosition.X, MousePosition.Y);
+
+					if (!cbNoTopLvl.Checked)
+					{
+						hWnd = GetTopLevelWindow(hWnd);
+					}
+
+					int enable = 0;
+					if (cbWndEnable.Checked)
+						enable = 1;
+
+					EnableWindow(hWnd, enable);
+				}
 				
 				btnSet.Cursor = Cursors.Default;
 			}
@@ -161,40 +163,12 @@ namespace ReSize
 				tbHeight.Text = values[1];
 			}
 		}
-		
-		private void DrawRect(IntPtr hWnd)
-		{
-			RECT rect = new RECT();
-			user32.GetWindowRect(hWnd, ref rect);
-			IntPtr hDC = user32.GetWindowDC(hWnd);
-			
-			if(hDC != IntPtr.Zero)
-			{
-				using(Pen pen = new Pen(Color.LightBlue, 5.0f))
-				{
-					using(Graphics g = Graphics.FromHdc(hDC))
-					{
-						Color blue1 = Color.FromArgb(50, Color.Blue);
-						Color blue2 = Color.Transparent;
-						
-						Rectangle r = new Rectangle(0, 0, rect.right - rect.left, rect.bottom - rect.top);
-						
-						SolidBrush b = new SolidBrush(blue1);
-						
-						g.FillRectangle(b, r);
-					}
-				}
-				user32.ReleaseDC(hWnd, hDC);
-			}
-		}
 
-		private void btnSet_MouseMove_1(object sender, MouseEventArgs e)
+		private void btnSet_MouseMove(object sender, MouseEventArgs e)
 		{
 			if(drag)
 			{
 				IntPtr hWnd = WindowFromPoint(MousePosition.X, MousePosition.Y);
-
-				//DrawRect(hWnd);
 
 				if (!cbNoTopLvl.Checked)
 				{
@@ -241,6 +215,23 @@ namespace ReSize
 				{
 					cbNoTopLvl.Checked = false;
 				}
+			}
+		}
+
+		private void cbWndEnabler_CheckStateChanged(object sender, EventArgs e)
+		{
+			if (cbWndEnabler.Checked)
+			{
+				cbNoResize.Checked = true;
+				cbNoResize.Enabled = false;
+				cbClientArea.Enabled = false;
+				cbWndEnable.Enabled = true;
+			}
+			else
+			{
+				cbNoResize.Enabled = true;
+				cbClientArea.Enabled = true;
+				cbWndEnable.Enabled = false;
 			}
 		}
 	}
