@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReSize));
 			this.tbWidth = new System.Windows.Forms.TextBox();
 			this.tbHeight = new System.Windows.Forms.TextBox();
@@ -48,6 +49,7 @@
 			this.btnSet = new System.Windows.Forms.Button();
 			this.cbWndEnable = new System.Windows.Forms.CheckBox();
 			this.cbWndEnabler = new System.Windows.Forms.CheckBox();
+			this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
 			this.SuspendLayout();
 			// 
 			// tbWidth
@@ -248,6 +250,13 @@
 			this.cbWndEnabler.UseVisualStyleBackColor = true;
 			this.cbWndEnabler.CheckStateChanged += new System.EventHandler(this.cbWndEnabler_CheckStateChanged);
 			// 
+			// notifyIcon
+			// 
+			this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
+			this.notifyIcon.Text = "ReSize";
+			this.notifyIcon.Visible = true;
+			this.notifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseClick);
+			// 
 			// ReSize
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -306,6 +315,7 @@
 		private System.Windows.Forms.CheckBox cbNoResize;
 		private System.Windows.Forms.CheckBox cbWndEnable;
 		private System.Windows.Forms.CheckBox cbWndEnabler;
+		private System.Windows.Forms.NotifyIcon notifyIcon;
 	}
 }
 
