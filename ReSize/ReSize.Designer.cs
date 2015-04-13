@@ -233,7 +233,7 @@
 			this.cbWndEnable.Checked = true;
 			this.cbWndEnable.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.cbWndEnable.Enabled = false;
-			this.cbWndEnable.Location = new System.Drawing.Point(243, 128);
+			this.cbWndEnable.Location = new System.Drawing.Point(227, 128);
 			this.cbWndEnable.Name = "cbWndEnable";
 			this.cbWndEnable.Size = new System.Drawing.Size(15, 14);
 			this.cbWndEnable.TabIndex = 20;
@@ -281,10 +281,9 @@
 			this.Controls.Add(this.btnSet);
 			this.Controls.Add(this.tbHeight);
 			this.Controls.Add(this.tbWidth);
-			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MaximizeBox = false;
-			this.MinimizeBox = false;
 			this.Name = "ReSize";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "ReSize";

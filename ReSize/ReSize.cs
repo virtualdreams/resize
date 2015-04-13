@@ -30,7 +30,7 @@ namespace ReSize
 
 			toolTip.SetToolTip(cbClientArea, "If checked, the client area is set to the specified resolution.");
 			toolTip.SetToolTip(btnSet, "Drag the icon over a window and release the mouse button.");
-			toolTip.SetToolTip(cbNoTopLvl, "Don't resolve the top level window. This can select any control.");
+			toolTip.SetToolTip(cbNoTopLvl, "Don't resolve the top level window.");
 			toolTip.SetToolTip(cbWndEnabler, "Enable or disable a window. This can have unexpected results.");
 			toolTip.SetToolTip(cbWndEnable, "Set the state to enabled or disabled.");
 		}
@@ -211,7 +211,7 @@ namespace ReSize
 		{
 			if(cbNoTopLvl.Checked)
 			{
-				if(MessageBox.Show(this, "Enable this function doesn't resolve the top level window.\nYou can resize ANY window or control.\nUse it at your own risk!\n\nEnable this feature?", "ReSize", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.No)
+				if(MessageBox.Show(this, "Enable this function doesn't resolve the top level window.\nThis can resize ANY window or control.\nUse it at your own risk!\n\nEnable this feature?", "ReSize", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.No)
 				{
 					cbNoTopLvl.Checked = false;
 				}
@@ -238,6 +238,10 @@ namespace ReSize
 		private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
 		{
 			this.Visible = !this.Visible;
+			if (this.Visible && this.WindowState == FormWindowState.Minimized)
+			{
+				this.WindowState = FormWindowState.Normal;
+			}
 		}
 	}
 }
